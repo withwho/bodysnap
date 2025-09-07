@@ -1,0 +1,17 @@
+{
+  "@@locale": "ko",
+  "common_confirm": "확인",
+  "common_cancel": "취소",
+  "common_delete": "삭제",
+
+  "settings_page_title": "설정",
+  "settings_list_version": "버전",
+  "settings_list_password": "비밀번호 설정",
+  "settings_list_backup": "백업 및 복구",
+  "settings_list_reset": "초기화",
+  "settings_list_subscribe": "구독",
+
+  "settings_reset_title": "초기화",
+  "settings_reset_message": "앱 데이터를 초기화하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+  "settings_reset_confirm": "초기화"
+}

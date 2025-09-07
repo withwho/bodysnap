@@ -1,0 +1,17 @@
+{
+  "@@locale": "en",
+  "common_confirm": "OK",
+  "common_cancel": "Cancel",
+  "common_delete": "Delete",
+
+  "settings_page_title": "Settings",
+  "settings_list_version": "Version",
+  "settings_list_password": "Password",
+  "settings_list_backup": "Backup & Restore",
+  "settings_list_reset": "Reset",
+  "settings_list_subscribe": "Subscribe",
+
+  "settings_reset_title": "Reset",
+  "settings_reset_message": "Reset app data? This action can't be undone.",
+  "settings_reset_confirm": "Reset"
+}
