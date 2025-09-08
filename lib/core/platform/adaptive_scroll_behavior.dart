@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AppScrollBehavior extends ScrollBehavior {
-  const AppScrollBehavior(this.platform);
+class AdaptiveScrollBehavior extends ScrollBehavior {
+  const AdaptiveScrollBehavior(this.platform);
   final TargetPlatform platform;
 
   @override

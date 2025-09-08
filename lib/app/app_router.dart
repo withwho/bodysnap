@@ -2,7 +2,7 @@ import 'package:bodysnap/core/platform/platform_style_provider.dart';
 import 'package:bodysnap/features/gallery/gallery_page.dart';
 import 'package:bodysnap/features/setting/pages/backup_page.dart';
 import 'package:bodysnap/features/setting/pages/password_confirm_page.dart';
-import 'package:bodysnap/features/setting/pages/password_page.dart';
+import 'package:bodysnap/features/setting/pages/password_setting_page.dart';
 import 'package:bodysnap/features/setting/pages/setting_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

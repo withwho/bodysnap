@@ -1,8 +1,8 @@
 import 'package:bodysnap/core/platform/widgets/adaptive_scaffold.dart';
-import 'package:bodysnap/core/widgets/number_pad.dart';
-import 'package:bodysnap/features/setting/controllers/pin_controller.dart';
+import 'package:bodysnap/features/widgets/number_pad.dart';
+import 'package:bodysnap/features/widgets/pin_controller.dart';
 import 'package:bodysnap/features/setting/providers/password_enabled_provider.dart';
-import 'package:bodysnap/features/setting/widgets/pin_boxes.dart';
+import 'package:bodysnap/features/widgets/pin_boxes.dart';
 import 'package:bodysnap/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

@@ -1,6 +1,6 @@
 import 'package:bodysnap/app/app_providers.dart';
 import 'package:bodysnap/app/app_router.dart';
-import 'package:bodysnap/core/platform/app_scroll_behavior.dart';
+import 'package:bodysnap/core/platform/adaptive_scroll_behavior.dart';
 import 'package:bodysnap/core/platform/platform_style_provider.dart';
 import 'package:bodysnap/l10n/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
@@ -38,7 +38,7 @@ class App extends ConsumerWidget {
         theme: CupertinoThemeData(brightness: brightness),
         locale: locale,
         routerConfig: appRouter,
-        scrollBehavior: const AppScrollBehavior(TargetPlatform.iOS),
+        scrollBehavior: const AdaptiveScrollBehavior(TargetPlatform.iOS),
         localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
@@ -82,7 +82,7 @@ class App extends ConsumerWidget {
       themeMode: themeMode,
       locale: locale,
       routerConfig: appRouter,
-      scrollBehavior: const AppScrollBehavior(TargetPlatform.android),
+      scrollBehavior: const AdaptiveScrollBehavior(TargetPlatform.android),
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
