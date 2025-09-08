@@ -12,8 +12,8 @@ class AppScaffold extends ConsumerWidget {
     required this.body,
     this.trailing,
     this.centerTitle, // Material에서만 강제 중앙정렬하고 싶을 때
-    this.cupertinoBackgroundColor,        // ✅ 추가
-    this.cupertinoNavBarBackgroundColor,  // ✅ 추가
+    this.cupertinoBackgroundColor, // ✅ 추가
+    this.cupertinoNavBarBackgroundColor, // ✅ 추가
   });
 
   final String? title;
@@ -31,19 +31,15 @@ class AppScaffold extends ConsumerWidget {
     final Widget? titleWidget = (title != null ? Text(title!) : null);
 
     if (isCupertino) {
-      final bg = cupertinoBackgroundColor
-          ?? CupertinoTheme.of(context).scaffoldBackgroundColor;
-      final navBg = cupertinoNavBarBackgroundColor ?? bg; // 통일
-
       return CupertinoPageScaffold(
-        backgroundColor: bg,
+        backgroundColor: cupertinoBackgroundColor,
         navigationBar: CupertinoNavigationBar(
           automaticallyImplyLeading: false,
-          padding: const EdgeInsetsDirectional.only(start: 0),
+          padding: const EdgeInsetsDirectional.only(start: 0, end: 16),
           leading: (canPop) ? const AdaptiveBackButton() : null,
           middle: titleWidget, // ← 제목이 없으면 null로 비워둔다
           trailing: trailing,
-          backgroundColor: navBg, // ✅ 네비바 배경도 같은 톤
+          backgroundColor: cupertinoNavBarBackgroundColor,
         ),
         child: SafeArea(top: false, bottom: true, child: body),
       );

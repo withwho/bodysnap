@@ -1,11 +1,18 @@
 import 'package:bodysnap/core/platform/adaptive_theme_extension.dart';
+import 'package:bodysnap/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class PinBoxes extends ConsumerWidget {
-  const PinBoxes({super.key, required this.maxLength, required this.value});
+  const PinBoxes({
+    super.key,
+    required this.maxLength,
+    required this.value,
+    this.isEqual,
+  });
   final int maxLength;
   final String value;
+  final bool? isEqual;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -15,7 +22,11 @@ class PinBoxes extends ConsumerWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          '4자리 숫자 비밀번호를 입력하세요',
+          switch (isEqual) {
+            null => context.l10n.settings_password_input_msg,
+            true => context.l10n.settings_password_input_msg2,
+            false => context.l10n.settings_password_input_msg3,
+          },
           style: ref.acTitleMedium(context),
           textAlign: TextAlign.center,
         ),
@@ -25,10 +36,13 @@ class PinBoxes extends ConsumerWidget {
           children: List.generate(maxLength, (i) {
             final filled = i < currentLen;
             final isCurrent = i == currentLen && currentLen < maxLength;
+            final ok = isEqual != false; // null/true -> ok, false -> fail
 
-            final borderColor = isCurrent
-                ? ref.acPrimary(context)
-                : ref.acOutlineVariant(context);
+            final borderColor = ok
+                ? (isCurrent
+                      ? ref.acPrimary(context)
+                      : ref.acOutlineVariant(context))
+                : ref.acError(context);
 
             final bgColor = isCurrent
                 ? ref.acSurfaceContainer(context)
@@ -54,12 +68,16 @@ class PinBoxes extends ConsumerWidget {
                 transitionBuilder: (child, anim) =>
                     ScaleTransition(scale: anim, child: child),
                 child: filled
-                    ? Text(
-                        value[i],
-                        key: ValueKey('digit_$i'),
-                        style: ref
-                            .acHeadlineSmall(context)
-                            .copyWith(fontWeight: FontWeight.w600),
+                    ? AnimatedContainer(
+                        key: ValueKey('dot_$i'),
+                        duration: const Duration(milliseconds: 120),
+                        curve: Curves.easeOut,
+                        width: isCurrent ? 12 : 10,
+                        height: isCurrent ? 12 : 10,
+                        decoration: BoxDecoration(
+                          color: ref.acPrimary(context),
+                          shape: BoxShape.circle,
+                        ),
                       )
                     : const SizedBox.shrink(key: ValueKey('empty')),
               ),

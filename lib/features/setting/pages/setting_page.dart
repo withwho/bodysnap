@@ -5,6 +5,7 @@ import 'package:bodysnap/core/platform/widgets/adaptive_list_tile.dart';
 import 'package:bodysnap/core/platform/widgets/adaptive_scaffold.dart';
 import 'package:bodysnap/core/platform/widgets/adaptive_sheets.dart';
 import 'package:bodysnap/core/platform/widgets/adaptive_switch_tile.dart';
+import 'package:bodysnap/core/util/app_log.dart';
 import 'package:bodysnap/features/setting/providers/password_enabled_provider.dart';
 import 'package:bodysnap/l10n/l10n.dart';
 import 'package:flutter/cupertino.dart';
@@ -50,9 +51,31 @@ class SettingPage extends ConsumerWidget {
     );
 
     // 비밀번호 상태
-    final passwordEnabledAsync = ref.watch(passwordEnabledProvider);
-    final isPasswordEnabled = passwordEnabledAsync.value ?? false;
-    final isPasswordEnabledLoading = passwordEnabledAsync.isLoading;
+    final isPasswordEnabled = ref.watch(passwordEnabledProvider);
+    ref.listen<AsyncValue<String>>(
+      passwordProvider,
+      (prev, next) {
+        next.when(
+          data: (value) {
+            final old = prev?.valueOrNull;
+            if (old != value) {
+              AppLog.d(
+                '[passwordProvider] old="$old" -> new="$value" '
+                '(len=${value.length})',
+              );
+            }
+          },
+          loading: () {
+            AppLog.d('[passwordProvider] loading…');
+          },
+          error: (e, st) {
+            AppLog.e('[passwordProvider] error: $e');
+          },
+        );
+      },
+      // 처음 빌드 시 현재 상태도 한 번 보고 싶다면:
+      // fireImmediately: true,
+    );
 
     // 공통으로 쓰일 항목들(타일만 구성)
     final tiles = <Widget>[
@@ -66,19 +89,14 @@ class SettingPage extends ConsumerWidget {
       AdaptiveSwitchTile(
         title: l10n.settings_list_password,
         value: isPasswordEnabled,
-        onChanged: isPasswordEnabledLoading
-            ? null
-            : (next) async {
-                final notifier = ref.read(passwordEnabledProvider.notifier);
-                if (next) {
-                  final ok = await context.push<bool>('/setting/password');
-                  if (context.mounted && ok == true) {
-                    await notifier.enable();
-                  }
-                } else {
-                  await notifier.disable();
-                }
-              },
+        onChanged: (next) async {
+          final notifier = ref.read(passwordProvider.notifier);
+          if (next) {
+            context.push('/setting/password');
+          } else {
+            await notifier.clear();
+          }
+        },
       ),
 
       // 3) 백업 및 복구
@@ -240,7 +258,6 @@ class SettingPage extends ConsumerWidget {
         ),
       ];
     }
-
 
     //CupertinoScrollbar:
     //Flutter는 기본적으로 ListView에 스크롤바가 자동으로 붙지 않음.

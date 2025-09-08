@@ -166,6 +166,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reset'**
   String get settings_reset_confirm;
+
+  /// No description provided for @settings_password_input_msg.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a 4-digit PIN'**
+  String get settings_password_input_msg;
+
+  /// No description provided for @settings_password_input_msg2.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm your PIN'**
+  String get settings_password_input_msg2;
+
+  /// No description provided for @settings_password_input_msg3.
+  ///
+  /// In en, this message translates to:
+  /// **'Passcodes do not match. Try again'**
+  String get settings_password_input_msg3;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

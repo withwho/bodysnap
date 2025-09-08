@@ -1,6 +1,7 @@
 import 'package:bodysnap/core/platform/platform_style_provider.dart';
 import 'package:bodysnap/features/gallery/gallery_page.dart';
 import 'package:bodysnap/features/setting/pages/backup_page.dart';
+import 'package:bodysnap/features/setting/pages/password_confirm_page.dart';
 import 'package:bodysnap/features/setting/pages/password_page.dart';
 import 'package:bodysnap/features/setting/pages/setting_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -60,13 +61,29 @@ final appRouter = GoRouter(
           routes: [
             GoRoute(
               path: 'password', // 실제 URL: /setting/password
-              name: 'passwordSetting', // ← SettingPage에서 쓰는 이름과 일치
+              name: 'passwordSetting',
               pageBuilder: (context, state) =>
                   adaptivePage(context, state, const PasswordSettingPage()),
+              routes: [
+                GoRoute(
+                  path:
+                      'password_confirm', // 실제 URL: /setting/password/password_confirm
+                  name: 'passwordConfirm',
+                  pageBuilder: (context, state) {
+                    final (:pin, :pinMaxLength) =
+                        state.extra as ({String pin, int pinMaxLength});
+                    return adaptivePage(
+                      context,
+                      state,
+                      PasswordConfirmPage(pin: pin, pinMaxLength: pinMaxLength),
+                    );
+                  },
+                ),
+              ],
             ),
             GoRoute(
               path: 'backup', // 실제 URL: /setting/backup
-              name: 'backup', // ← SettingPage에서 쓰는 이름과 일치
+              name: 'backup',
               pageBuilder: (context, state) =>
                   adaptivePage(context, state, const BackupPage()),
             ),

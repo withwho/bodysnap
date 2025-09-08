@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 class App extends ConsumerWidget {
   const App({super.key});
@@ -45,6 +46,12 @@ class App extends ConsumerWidget {
           GlobalWidgetsLocalizations.delegate,
         ],
         supportedLocales: AppLocalizations.supportedLocales,
+        builder: (context, child) => LoaderOverlay(
+          overlayColor: CupertinoColors.black.withValues(alpha: .35),
+          overlayWidgetBuilder: (_) =>
+              const Center(child: CupertinoActivityIndicator(radius: 16)),
+          child: child ?? const SizedBox.shrink(),
+        ),
       );
     }
 
@@ -83,6 +90,8 @@ class App extends ConsumerWidget {
         GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
+      builder: (context, child) =>
+          LoaderOverlay(child: child ?? const SizedBox.shrink()),
     );
   }
 }

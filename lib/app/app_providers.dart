@@ -1,5 +1,6 @@
 import 'package:bodysnap/core/util/app_log.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -43,8 +44,9 @@ final deviceMetricsProvider = FutureProvider.autoDispose<DeviceMetrics>((
 });
 
 /// ThemeMode Provider
-final themeModeProvider =
-    NotifierProvider<ThemeModeNotifier, ThemeMode>(ThemeModeNotifier.new);
+final themeModeProvider = NotifierProvider<ThemeModeNotifier, ThemeMode>(
+  ThemeModeNotifier.new,
+);
 
 class ThemeModeNotifier extends Notifier<ThemeMode> {
   static const _kKey = 'themeMode'; // 0:system,1:light,2:dark
@@ -64,8 +66,9 @@ class ThemeModeNotifier extends Notifier<ThemeMode> {
 }
 
 /// Locale Provider (null = 시스템)
-final localeProvider =
-    NotifierProvider<LocaleNotifier, Locale?>(LocaleNotifier.new);
+final localeProvider = NotifierProvider<LocaleNotifier, Locale?>(
+  LocaleNotifier.new,
+);
 
 class LocaleNotifier extends Notifier<Locale?> {
   static const _kKey = 'localeCode'; // 'ko' | 'en' | 미설정(null=system)
@@ -88,3 +91,17 @@ class LocaleNotifier extends Notifier<Locale?> {
     }
   }
 }
+
+final secureStorageProvider = Provider<FlutterSecureStorage>((ref) {
+  // 기본 옵션—플랫폼별로 보안 수준을 적절히 지정
+  const storage = FlutterSecureStorage(
+    aOptions: AndroidOptions(
+      encryptedSharedPreferences:
+          true, // Android: EncryptedSharedPreferences 사용
+    ),
+    iOptions: IOSOptions(
+      accessibility: KeychainAccessibility.first_unlock, // iOS: 첫 잠금해제 후 접근
+    ),
+  );
+  return storage;
+});

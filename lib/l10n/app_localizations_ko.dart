@@ -43,4 +43,13 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get settings_reset_confirm => '초기화';
+
+  @override
+  String get settings_password_input_msg => '4자리 숫자 비밀번호를 입력하세요';
+
+  @override
+  String get settings_password_input_msg2 => '비밀번호를 한 번 더 입력해 주세요';
+
+  @override
+  String get settings_password_input_msg3 => '비밀번호가 일치하지 않습니다. 다시 입력해 주세요';
 }
