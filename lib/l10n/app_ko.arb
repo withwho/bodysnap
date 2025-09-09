@@ -12,10 +12,10 @@
   "settings_list_subscribe": "구독",
 
   "settings_reset_title": "초기화",
-  "settings_reset_message": "앱 데이터를 초기화하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+  "settings_reset_message": "앱 데이터를 초기화 하시겠습니까?\n이 작업은 되돌릴 수 없습니다.",
   "settings_reset_confirm": "초기화",
 
-  "settings_password_input_msg": "4자리 숫자 비밀번호를 입력하세요",
-  "settings_password_input_msg2": "비밀번호를 한 번 더 입력해 주세요",
-  "settings_password_input_msg3": "비밀번호가 일치하지 않습니다.\n다시 입력해 주세요"
+  "settings_password_input_msg": "4자리 숫자 비밀번호를 입력하세요.",
+  "settings_password_input_msg2": "비밀번호를 한 번 더 입력해 주세요.",
+  "settings_password_input_msg3": "비밀번호가 일치하지 않습니다.\n다시 입력해 주세요."
 }

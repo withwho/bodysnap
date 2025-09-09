@@ -39,7 +39,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_reset_title => 'Reset';
 
   @override
-  String get settings_reset_message => 'Reset app data? This action can\'t be undone.';
+  String get settings_reset_message => 'Reset app data?\nThis action can\'t be undone.';
 
   @override
   String get settings_reset_confirm => 'Reset';

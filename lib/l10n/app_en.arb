@@ -12,7 +12,7 @@
   "settings_list_subscribe": "Subscribe",
 
   "settings_reset_title": "Reset",
-  "settings_reset_message": "Reset app data? This action can't be undone.",
+  "settings_reset_message": "Reset app data?\nThis action can't be undone.",
   "settings_reset_confirm": "Reset",
 
   "settings_password_input_msg": "Enter a 4-digit PIN",

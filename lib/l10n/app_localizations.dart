@@ -158,7 +158,7 @@ abstract class AppLocalizations {
   /// No description provided for @settings_reset_message.
   ///
   /// In en, this message translates to:
-  /// **'Reset app data? This action can\'t be undone.'**
+  /// **'Reset app data?\nThis action can\'t be undone.'**
   String get settings_reset_message;
 
   /// No description provided for @settings_reset_confirm.

@@ -2,9 +2,10 @@ import 'package:bodysnap/app/app_password_provider.dart';
 import 'package:bodysnap/app/app_providers.dart';
 import 'package:bodysnap/core/platform/platform_style.dart';
 import 'package:bodysnap/core/platform/platform_style_provider.dart';
+import 'package:bodysnap/core/platform/widgets/adaptive_alert_dialog.dart';
+import 'package:bodysnap/core/platform/widgets/adaptive_bottom_sheets.dart';
 import 'package:bodysnap/core/platform/widgets/adaptive_list_tile.dart';
 import 'package:bodysnap/core/platform/widgets/adaptive_scaffold.dart';
-import 'package:bodysnap/core/platform/widgets/adaptive_sheets.dart';
 import 'package:bodysnap/core/platform/widgets/adaptive_switch_tile.dart';
 import 'package:bodysnap/core/util/app_log.dart';
 import 'package:bodysnap/l10n/l10n.dart';
@@ -106,7 +107,19 @@ class SettingPage extends ConsumerWidget {
       // 4) 초기화
       AdaptiveListTile.nav(
         title: Text(l10n.settings_list_reset),
-        // onTap: () => GoRouter.of(context).push('/setting/subscription'),
+        onTap: () async {
+          await showAdaptiveAlertDialog(
+            isDestructiveAction: true,
+            context: context,
+            title: context.l10n.settings_reset_title,
+            message: context.l10n.settings_reset_message,
+            confirmText: context.l10n.settings_reset_confirm,
+            confirmPress: () => AppLog.d('Dialog Press Confirm'),
+            cancelPress: () => AppLog.d('Dialog Press Cancel'),
+          );
+
+          AppLog.d('dismiss dialog');
+        },
       ),
 
       // 5) 구독
@@ -157,7 +170,7 @@ class SettingPage extends ConsumerWidget {
           title: const Text('Platform'),
           trailing: Text(platformLabel()),
           onTap: () async {
-            final picked = await showAdaptiveSheet<PlatformStyle>(
+            final picked = await showAdaptiveBottomSheet<PlatformStyle>(
               context: context,
               title: 'Platform',
               options: [
@@ -192,7 +205,7 @@ class SettingPage extends ConsumerWidget {
           title: const Text('Theme'),
           trailing: Text(themeLabel()),
           onTap: () async {
-            final picked = await showAdaptiveSheet<ThemeMode>(
+            final picked = await showAdaptiveBottomSheet<ThemeMode>(
               context: context,
               title: 'Theme',
               options: [
@@ -225,7 +238,7 @@ class SettingPage extends ConsumerWidget {
           title: const Text('Language'),
           trailing: Text(localeLabel()),
           onTap: () async {
-            final picked = await showAdaptiveSheet<Locale?>(
+            final picked = await showAdaptiveBottomSheet<Locale?>(
               context: context,
               title: 'Language',
               options: [

@@ -1,4 +1,3 @@
-import 'package:bodysnap/app/app.dart';
 import 'package:bodysnap/app/app_bootstrap.dart';
 import 'package:bodysnap/app/app_providers.dart';
 import 'package:bodysnap/core/util/app_log.dart';

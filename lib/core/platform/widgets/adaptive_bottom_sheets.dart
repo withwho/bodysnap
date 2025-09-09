@@ -1,11 +1,13 @@
-import 'package:bodysnap/core/platform/platform_style_provider.dart';
+import 'package:bodysnap/core/platform/platform_style_provider.dart'
+    show isCupertinoProvider;
+import 'package:bodysnap/core/util/app_log.dart';
 import 'package:bodysnap/l10n/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-Future<T?> showAdaptiveSheet<T>({
+Future<T?> showAdaptiveBottomSheet<T>({
   required BuildContext context,
   required String title,
   String? message,
@@ -19,6 +21,7 @@ Future<T?> showAdaptiveSheet<T>({
   ).read(isCupertinoProvider);
 
   if (isCupertino) {
+    AppLog.d('Cupertino Bottom Sheet');
     // ✅ iOS: Cupertino Action Sheet
     return showCupertinoModalPopup<T>(
       context: context,
@@ -41,6 +44,7 @@ Future<T?> showAdaptiveSheet<T>({
       ),
     );
   } else {
+    AppLog.d('Material Bottom Sheet');
     // ✅ Android: Material Bottom Sheet
     return showModalBottomSheet<T>(
       context: context,
