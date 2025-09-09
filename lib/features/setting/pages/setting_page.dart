@@ -1,3 +1,4 @@
+import 'package:bodysnap/app/app_password_provider.dart';
 import 'package:bodysnap/app/app_providers.dart';
 import 'package:bodysnap/core/platform/platform_style.dart';
 import 'package:bodysnap/core/platform/platform_style_provider.dart';
@@ -6,7 +7,6 @@ import 'package:bodysnap/core/platform/widgets/adaptive_scaffold.dart';
 import 'package:bodysnap/core/platform/widgets/adaptive_sheets.dart';
 import 'package:bodysnap/core/platform/widgets/adaptive_switch_tile.dart';
 import 'package:bodysnap/core/util/app_log.dart';
-import 'package:bodysnap/features/setting/providers/password_enabled_provider.dart';
 import 'package:bodysnap/l10n/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -52,9 +52,9 @@ class SettingPage extends ConsumerWidget {
 
     // 비밀번호 상태
     final isPasswordEnabled = ref.watch(passwordEnabledProvider);
-    ref.listen<AsyncValue<String>>(
-      passwordProvider,
-      (prev, next) {
+
+    if (kDebugMode) {
+      ref.listen<AsyncValue<String>>(passwordProvider, (prev, next) {
         next.when(
           data: (value) {
             final old = prev?.valueOrNull;
@@ -72,10 +72,8 @@ class SettingPage extends ConsumerWidget {
             AppLog.e('[passwordProvider] error: $e');
           },
         );
-      },
-      // 처음 빌드 시 현재 상태도 한 번 보고 싶다면:
-      // fireImmediately: true,
-    );
+      });
+    }
 
     // 공통으로 쓰일 항목들(타일만 구성)
     final tiles = <Widget>[
@@ -92,7 +90,7 @@ class SettingPage extends ConsumerWidget {
         onChanged: (next) async {
           final notifier = ref.read(passwordProvider.notifier);
           if (next) {
-            context.push('/setting/password');
+            GoRouter.of(context).push('/setting/password');
           } else {
             await notifier.clear();
           }
@@ -102,19 +100,19 @@ class SettingPage extends ConsumerWidget {
       // 3) 백업 및 복구
       AdaptiveListTile.nav(
         title: Text(l10n.settings_list_backup),
-        onTap: () => context.push('/setting/backup'),
+        onTap: () => GoRouter.of(context).push('/setting/backup'),
       ),
 
       // 4) 초기화
       AdaptiveListTile.nav(
         title: Text(l10n.settings_list_reset),
-        // onTap: () => context.push('/setting/subscription'),
+        // onTap: () => GoRouter.of(context).push('/setting/subscription'),
       ),
 
       // 5) 구독
       AdaptiveListTile.nav(
         title: Text(l10n.settings_list_subscribe),
-        // onTap: () => context.push('/setting/subscription'),
+        // onTap: () => GoRouter.of(context).push('/setting/subscription'),
       ),
     ];
 

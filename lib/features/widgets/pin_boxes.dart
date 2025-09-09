@@ -6,47 +6,55 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class PinBoxes extends ConsumerWidget {
   const PinBoxes({
     super.key,
+    required this.message,
     required this.maxLength,
-    required this.value,
-    this.isEqual,
+    required this.pin,
+    this.isError = false,
   });
   final int maxLength;
-  final String value;
-  final bool? isEqual;
+  final String pin;
+  final String message;
+  final bool isError;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final int currentLen = value.length;
+    //final currentLen = pin.length;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          switch (isEqual) {
-            null => context.l10n.settings_password_input_msg,
-            true => context.l10n.settings_password_input_msg2,
-            false => context.l10n.settings_password_input_msg3,
-          },
-          style: ref.acTitleMedium(context),
-          textAlign: TextAlign.center,
+        SizedBox(
+          height: 48, // 한 줄 또는 두 줄을 다 수용할 수 있는 고정 높이
+          child: Center(
+            child: Text(
+              isError ? context.l10n.settings_password_input_msg3 : message,
+              style: ref.acTitleMedium(context),
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
         ),
         const SizedBox(height: 16),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(maxLength, (i) {
-            final filled = i < currentLen;
-            final isCurrent = i == currentLen && currentLen < maxLength;
-            final ok = isEqual != false; // null/true -> ok, false -> fail
+            final filled = i < pin.length;
+            final isCurrent = i == pin.length && pin.length < maxLength;
 
-            final borderColor = ok
-                ? (isCurrent
+            final borderColor = isError
+                ? ref.acError(context)
+                : (isCurrent
                       ? ref.acPrimary(context)
-                      : ref.acOutlineVariant(context))
-                : ref.acError(context);
+                      : ref.acOutlineVariant(context));
 
             final bgColor = isCurrent
                 ? ref.acSurfaceContainer(context)
                 : ref.acSurfaceContainerHighest(context);
+
+            final dotColor = isError
+                ? ref.acError(context)
+                : ref.acPrimary(context);
 
             return AnimatedContainer(
               key: ValueKey(i),
@@ -75,7 +83,7 @@ class PinBoxes extends ConsumerWidget {
                         width: isCurrent ? 12 : 10,
                         height: isCurrent ? 12 : 10,
                         decoration: BoxDecoration(
-                          color: ref.acPrimary(context),
+                          color: dotColor,
                           shape: BoxShape.circle,
                         ),
                       )

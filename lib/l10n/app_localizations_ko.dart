@@ -51,5 +51,5 @@ class AppLocalizationsKo extends AppLocalizations {
   String get settings_password_input_msg2 => '비밀번호를 한 번 더 입력해 주세요';
 
   @override
-  String get settings_password_input_msg3 => '비밀번호가 일치하지 않습니다. 다시 입력해 주세요';
+  String get settings_password_input_msg3 => '비밀번호가 일치하지 않습니다.\n다시 입력해 주세요';
 }

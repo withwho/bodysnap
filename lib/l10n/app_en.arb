@@ -15,7 +15,7 @@
   "settings_reset_message": "Reset app data? This action can't be undone.",
   "settings_reset_confirm": "Reset",
 
-  "settings_password_input_msg": "Create a 4-digit PIN",
+  "settings_password_input_msg": "Enter a 4-digit PIN",
   "settings_password_input_msg2": "Confirm your PIN",
-  "settings_password_input_msg3": "Passcodes do not match. Try again"
+  "settings_password_input_msg3": "Passcodes do not match.\nTry again"
 }

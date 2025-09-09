@@ -1,5 +1,6 @@
 import 'package:bodysnap/core/platform/platform_style_provider.dart';
 import 'package:bodysnap/features/gallery/gallery_page.dart';
+import 'package:bodysnap/features/password/password_page.dart';
 import 'package:bodysnap/features/setting/pages/backup_page.dart';
 import 'package:bodysnap/features/setting/pages/password_confirm_page.dart';
 import 'package:bodysnap/features/setting/pages/password_setting_page.dart';
@@ -45,51 +46,69 @@ Page<T> adaptivePage<T>(
         );
 }
 
-final appRouter = GoRouter(
-  routes: [
-    GoRoute(
-      path: '/',
-      name: 'gallery',
-      pageBuilder: (context, state) =>
-          adaptivePage(context, state, const GalleryPage()),
-      routes: [
-        GoRoute(
-          path: 'setting',
-          name: 'setting',
-          pageBuilder: (context, state) =>
-              adaptivePage(context, state, const SettingPage()),
-          routes: [
-            GoRoute(
-              path: 'password', // 실제 URL: /setting/password
-              name: 'passwordSetting',
-              pageBuilder: (context, state) =>
-                  adaptivePage(context, state, const PasswordSettingPage()),
-              routes: [
-                GoRoute(
-                  path:
-                      'password_confirm', // 실제 URL: /setting/password/password_confirm
-                  name: 'passwordConfirm',
-                  pageBuilder: (context, state) {
-                    final (:pin, :pinMaxLength) =
-                        state.extra as ({String pin, int pinMaxLength});
-                    return adaptivePage(
-                      context,
-                      state,
-                      PasswordConfirmPage(pin: pin, pinMaxLength: pinMaxLength),
-                    );
-                  },
-                ),
-              ],
-            ),
-            GoRoute(
-              path: 'backup', // 실제 URL: /setting/backup
-              name: 'backup',
-              pageBuilder: (context, state) =>
-                  adaptivePage(context, state, const BackupPage()),
-            ),
-          ],
-        ),
-      ],
-    ),
-  ],
-);
+final appRouterProvider = Provider<GoRouter>((ref) {
+  return GoRouter(
+    routes: [
+      GoRoute(
+        path: '/lock',
+        name: 'lock',
+        pageBuilder: (context, state) {
+          return adaptivePage(
+            context,
+            state,
+            const PasswordPage(),
+            fullscreenDialog: true, // ⬅️ 모달로
+            maintainState: false,
+          );
+        },
+      ),
+      GoRoute(
+        path: '/',
+        name: 'gallery',
+        pageBuilder: (context, state) =>
+            adaptivePage(context, state, const GalleryPage()),
+        routes: [
+          GoRoute(
+            path: 'setting',
+            name: 'setting',
+            pageBuilder: (context, state) =>
+                adaptivePage(context, state, const SettingPage()),
+            routes: [
+              GoRoute(
+                path: 'password', // 실제 URL: /setting/password
+                name: 'passwordSetting',
+                pageBuilder: (context, state) =>
+                    adaptivePage(context, state, const PasswordSettingPage()),
+                routes: [
+                  GoRoute(
+                    path:
+                        'password_confirm', // 실제 URL: /setting/password/password_confirm
+                    name: 'passwordConfirm',
+                    pageBuilder: (context, state) {
+                      final (:pin, :pinMaxLength) =
+                          state.extra as ({String pin, int pinMaxLength});
+                      return adaptivePage(
+                        context,
+                        state,
+                        PasswordConfirmPage(
+                          pin: pin,
+                          pinMaxLength: pinMaxLength,
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+              GoRoute(
+                path: 'backup', // 실제 URL: /setting/backup
+                name: 'backup',
+                pageBuilder: (context, state) =>
+                    adaptivePage(context, state, const BackupPage()),
+              ),
+            ],
+          ),
+        ],
+      ),
+    ],
+  );
+});

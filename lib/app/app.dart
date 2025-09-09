@@ -17,6 +17,7 @@ class App extends ConsumerWidget {
     final locale = ref.watch(localeProvider);
     final isCupertino = ref.watch(isCupertinoProvider);
     final themeMode = ref.watch(themeModeProvider);
+    final appRouter = ref.watch(appRouterProvider);
 
     if (isCupertino) {
       Brightness systemBrightness() =>
@@ -27,7 +28,6 @@ class App extends ConsumerWidget {
         ThemeMode.light => Brightness.light,
         ThemeMode.dark => Brightness.dark,
       };
-
       return CupertinoApp.router(
         // 디버그에서 true (배너 표시)
         //debugShowCheckedModeBanner: kDebugMode,
@@ -90,6 +90,7 @@ class App extends ConsumerWidget {
         GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
+
       builder: (context, child) =>
           LoaderOverlay(child: child ?? const SizedBox.shrink()),
     );

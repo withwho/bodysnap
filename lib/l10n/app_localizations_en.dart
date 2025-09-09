@@ -45,11 +45,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_reset_confirm => 'Reset';
 
   @override
-  String get settings_password_input_msg => 'Create a 4-digit PIN';
+  String get settings_password_input_msg => 'Enter a 4-digit PIN';
 
   @override
   String get settings_password_input_msg2 => 'Confirm your PIN';
 
   @override
-  String get settings_password_input_msg3 => 'Passcodes do not match. Try again';
+  String get settings_password_input_msg3 => 'Passcodes do not match.\nTry again';
 }

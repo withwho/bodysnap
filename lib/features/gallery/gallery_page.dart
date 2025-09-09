@@ -16,7 +16,7 @@ class GalleryPage extends ConsumerWidget {
         cupertinoIcon: CupertinoIcons.gear_solid,
         materialIcon: Icons.settings,
         color: ref.acOnSurface(context),
-        onPressed: () => context.push('/setting'),
+        onPressed: () => GoRouter.of(context).push('/setting'),
         padding: EdgeInsets.zero,
       ),
       body: const Center(child: Text('body')),

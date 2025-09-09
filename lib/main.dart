@@ -1,7 +1,7 @@
 import 'package:bodysnap/app/app.dart';
+import 'package:bodysnap/app/app_bootstrap.dart';
 import 'package:bodysnap/app/app_providers.dart';
 import 'package:bodysnap/core/util/app_log.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -29,11 +29,11 @@ Future<void> main() async {
   FlutterNativeSplash.preserve(widgetsBinding: binding);
 
   // 디버그 할때 화면에 레이어 경계선 등을 그려준다.
-  if (kDebugMode) {
-    //SdebugPaintSizeEnabled = true; // 위젯 크기/패딩/정렬 가이드
-    //debugPaintLayerBordersEnabled = true; // 레이어 경계선
-    //debugPaintPointersEnabled = true; // 포인터 히트테스트
-  }
+  // if (kDebugMode) {
+  //   SdebugPaintSizeEnabled = true; // 위젯 크기/패딩/정렬 가이드
+  //   debugPaintLayerBordersEnabled = true; // 레이어 경계선
+  //   debugPaintPointersEnabled = true; // 포인터 히트테스트
+  // }
 
   final packageInfo = await PackageInfo.fromPlatform();
   AppLog.d('appName: ${packageInfo.appName}');
@@ -43,17 +43,13 @@ Future<void> main() async {
 
   final sharedPreferences = await SharedPreferences.getInstance();
 
-  // Riverpod ProviderScope로 앱 상태관리 루트 감싸기
   runApp(
     ProviderScope(
       overrides: [
         packageInfoProvider.overrideWithValue(packageInfo),
         sharedPrefsProvider.overrideWithValue(sharedPreferences),
       ],
-      child: const App(),
+      child: const AppBootStrap(),
     ),
   );
-
-  // 스플래쉬 종료
-  FlutterNativeSplash.remove();
 }

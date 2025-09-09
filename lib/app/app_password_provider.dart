@@ -10,6 +10,12 @@ final passwordEnabledProvider = Provider<bool>((ref) {
   );
 });
 
+/// 비밀번호를 풀었는지 저장하는 Provider
+final unlockedProvider = StateProvider<bool>((_) => false);
+
+// 기록용: 마지막으로 백그라운드(또는 비활성)로 간 시각
+final lastBackgroundAtProvider = StateProvider<DateTime?>((ref) => null);
+
 /// 실제 비밀번호 상태 (보안 저장소 사용)
 final passwordProvider = AsyncNotifierProvider<PasswordNotifier, String>(
   PasswordNotifier.new,
@@ -49,5 +55,21 @@ class PasswordNotifier extends AsyncNotifier<String> {
       // 실패 시 state 변경 없음
       return false;
     }
+  }
+
+  Future<bool> verify(String input) async {
+    final storage = ref.read(secureStorageProvider);
+    final saved = await storage.read(key: _key) ?? '';
+    return _slowEquals(saved, input);
+  }
+
+  bool _slowEquals(String a, String b) {
+    // 타이밍 공격 방지용 상수 시간 비교
+    if (a.length != b.length) return false;
+    var diff = 0;
+    for (var i = 0; i < a.length; i++) {
+      diff |= a.codeUnitAt(i) ^ b.codeUnitAt(i);
+    }
+    return diff == 0;
   }
 }
