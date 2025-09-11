@@ -10,7 +10,7 @@ final passwordEnabledProvider = Provider<bool>((ref) {
   );
 });
 
-/// 비밀번호를 풀었는지 저장하는 Provider
+/// 비밀번호를 풀었는지 저장하는 Provider (풀려있으면 백그라운드상태가 될때까지 다시 들어가지 않는다)
 final unlockedProvider = StateProvider<bool>((_) => false);
 
 // 기록용: 마지막으로 백그라운드(또는 비활성)로 간 시각

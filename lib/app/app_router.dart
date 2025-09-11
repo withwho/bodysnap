@@ -1,9 +1,10 @@
 import 'package:bodysnap/core/platform/platform_style_provider.dart';
 import 'package:bodysnap/features/gallery/gallery_page.dart';
 import 'package:bodysnap/features/password/password_page.dart';
-import 'package:bodysnap/features/setting/pages/backup_page.dart';
-import 'package:bodysnap/features/setting/pages/password_confirm_page.dart';
-import 'package:bodysnap/features/setting/pages/password_setting_page.dart';
+import 'package:bodysnap/features/setting/pages/backup/backup_page.dart';
+import 'package:bodysnap/features/setting/pages/password/password_confirm_page.dart';
+import 'package:bodysnap/features/setting/pages/password/password_setting_page.dart';
+import 'package:bodysnap/features/setting/pages/premium/premium_purchase_page.dart';
 import 'package:bodysnap/features/setting/pages/setting_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -104,6 +105,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 name: 'backup',
                 pageBuilder: (context, state) =>
                     adaptivePage(context, state, const BackupPage()),
+              ),
+              GoRoute(
+                path: 'premium', // 실제 URL: /setting/backup
+                name: 'premium',
+                pageBuilder: (context, state) =>
+                    adaptivePage(context, state, const PremiumPurchasePage()),
               ),
             ],
           ),

@@ -7,6 +7,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class AdaptiveBackButton extends ConsumerWidget {
   const AdaptiveBackButton({super.key});
 
+  void _handleBack(BuildContext context) {
+    final nav = Navigator.maybeOf(context);
+    final canPop = nav?.canPop() ?? false;
+    if (canPop) {
+      // 실제 스택이 있을 때만 pop
+      context.pop();
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isCupertino = ref.watch(isCupertinoProvider);
@@ -18,17 +27,19 @@ class AdaptiveBackButton extends ConsumerWidget {
       if (isModal) {
         return CupertinoButton(
           padding: EdgeInsets.zero,
-          onPressed: () => context.pop(),
+          onPressed: () => _handleBack(context),
           child: const Icon(CupertinoIcons.xmark),
         );
       }
-      return CupertinoNavigationBarBackButton(onPressed: () => context.pop());
+      return CupertinoNavigationBarBackButton(
+        onPressed: () => _handleBack(context),
+      );
     }
 
     if (isModal) {
-      return const CloseButton(); // 접근성/테마 연동 OK
+      return CloseButton(onPressed: () => _handleBack(context));
     }
     // 머티리얼 기본 Back 버튼
-    return BackButton(onPressed: () => context.pop());
+    return BackButton(onPressed: () => _handleBack(context));
   }
 }

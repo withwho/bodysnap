@@ -20,6 +20,7 @@ class _AppLockGuardState extends ConsumerState<AppLockGuard>
   @override
   void initState() {
     super.initState();
+    AppLog.d("AppLockGuard initState");
     WidgetsBinding.instance.addObserver(this);
 
     WidgetsBinding.instance.addPostFrameCallback((_) => _maybePresentLock());
@@ -27,13 +28,19 @@ class _AppLockGuardState extends ConsumerState<AppLockGuard>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    // 포그라운드 복귀 시 잠금을 요구
-    if (state == AppLifecycleState.resumed) {
-      AppLog.d("didChangeAppLifecycleState : resumed");
-
-      // 세션 잠금
-      ref.read(unlockedProvider.notifier).state = false;
-      _maybePresentLock();
+    switch (state) {
+      case AppLifecycleState.resumed:
+        AppLog.d("didChangeAppLifecycleState : resumed");
+        ref.read(unlockedProvider.notifier).state = false;
+        _maybePresentLock(); // ✅ 포그라운드 복귀시에만 검사
+        break;
+      case AppLifecycleState.paused:
+        AppLog.d("didChangeAppLifecycleState : paused");
+        ref.read(lastBackgroundAtProvider.notifier).state = DateTime.now();
+        break;
+      default:
+        AppLog.d("didChangeAppLifecycleState : $state");
+        break;
     }
   }
 
@@ -55,8 +62,10 @@ class _AppLockGuardState extends ConsumerState<AppLockGuard>
     final now = DateTime.now();
     final lastUnlockAt = ref.read(lastBackgroundAtProvider);
     AppLog.d("AppLock Last Unlock : ${lastUnlockAt}");
-    final elapsed = (lastUnlockAt == null) ? AppConstants.unlockDuration * 2 : now.difference(lastUnlockAt);
-    if ( elapsed < AppConstants.unlockDuration ) {
+    final elapsed = (lastUnlockAt == null)
+        ? AppConstants.unlockDuration * 2
+        : now.difference(lastUnlockAt);
+    if (elapsed < AppConstants.unlockDuration) {
       ref.read(lastBackgroundAtProvider.notifier).state = now;
       return;
     }
@@ -65,7 +74,7 @@ class _AppLockGuardState extends ConsumerState<AppLockGuard>
     try {
       final router = ref.read(appRouterProvider);
 
-      // 현재 경로 파악 (가능하면 router.location 사용)
+      // 현재 경로 파악
       final matches = router.routerDelegate.currentConfiguration;
       final currentPath = matches.last.matchedLocation;
       AppLog.d("AppLock is activating : $currentPath");
@@ -76,8 +85,6 @@ class _AppLockGuardState extends ConsumerState<AppLockGuard>
         AppLog.d("AppLock is release ");
       }
 
-      // 잠금 화면 내부에서 성공적으로 인증되면, 그곳에서
-      // ref.read(unlockedProvider.notifier).state = true; 로 설정하는 것을 권장
     } catch (e, st) {
       AppLog.e('AppLock push failed', error: e, stackTrace: st);
     } finally {
@@ -89,6 +96,7 @@ class _AppLockGuardState extends ConsumerState<AppLockGuard>
 
   @override
   void dispose() {
+    AppLog.d("AppLockGuard dispose");
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }

@@ -16,17 +16,24 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// 설정 페이지
-/// - 상단 AppBar: 좌측 뒤로가기, 가운데 타이틀
-/// - 본문: 리스트 형태 항목들
-///   1) 버전 (오른쪽에 버전 표시)
-///   2) 비밀번호 설정 (화면 이동)
-///   3) 백업 및 복구 (화면 이동)
-///   4) 초기화 (경고 확인 다이얼로그)
-///   5) 구독 (화면 이동)
-///   디버깅용
-///   6) 플랫폼 변경 ( cupertino / material )
-///   7) 테마변경 ( light / dart )
-///   8) 언어변경 ( ko / en )
+///  - Application
+///   1) 버전() : 업데이트
+///   2) 구독
+///   3) 테마 ( system, light, dark)
+///   4) 언어 ( ko, en)
+/// 
+///  - security 
+///   1) 비밀번호 설정
+///   2) 개인정보보호 방침
+/// 
+///  - support
+///   1) 백업 및 복구
+///   2) 초기화
+///   3) 문의하기
+/// 
+///  - debug
+///   1) 플랫폼 변경
+
 class SettingPage extends ConsumerWidget {
   const SettingPage({super.key});
 
@@ -125,7 +132,7 @@ class SettingPage extends ConsumerWidget {
       // 5) 구독
       AdaptiveListTile.nav(
         title: Text(l10n.settings_list_subscribe),
-        // onTap: () => GoRouter.of(context).push('/setting/subscription'),
+        onTap: () => GoRouter.of(context).push('/setting/premium'),
       ),
     ];
 
@@ -270,15 +277,14 @@ class SettingPage extends ConsumerWidget {
       ];
     }
 
-    //CupertinoScrollbar:
-    //Flutter는 기본적으로 ListView에 스크롤바가 자동으로 붙지 않음.
-    //iOS 네이티브 앱은 스크롤 시 오른쪽에 얇은 인디케이터가 잠깐 나타나는데, Flutter에선 그 역할을 **CupertinoScrollbar**가 해줘.
-    //Material 쪽은 같은 역할을 **Scrollbar**가 하고, 모양/애니메이션이 머티리얼 스타일임.
     final Widget body = isCupertino
         ? ListView(
             children: [
               // iOS: 섹션형 리스트(구분선 X)
-              CupertinoListSection.insetGrouped(children: tiles),
+              CupertinoListSection.insetGrouped(
+                hasLeading: false,
+                children: tiles,
+              ),
               if (kDebugMode)
                 CupertinoListSection.insetGrouped(
                   header: const Text('Debug Section'),
@@ -301,15 +307,10 @@ class SettingPage extends ConsumerWidget {
                 tiles.length + (kDebugMode ? buildDebugTiles().length : 0),
           );
 
-    final groupedBg = CupertinoColors.systemGroupedBackground.resolveFrom(
-      context,
-    );
-
     return AppScaffold(
       title: context.l10n.settings_page_title,
       body: body,
-      cupertinoBackgroundColor: groupedBg,
-      cupertinoNavBarBackgroundColor: groupedBg,
+      cupertinoBackgroundColor: CupertinoColors.systemGroupedBackground,
     );
   }
 }

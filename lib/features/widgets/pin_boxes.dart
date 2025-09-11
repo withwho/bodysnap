@@ -27,8 +27,8 @@ class PinBoxes extends ConsumerWidget {
           height: 48, // 한 줄 또는 두 줄을 다 수용할 수 있는 고정 높이
           child: Center(
             child: Text(
-              isError ? context.l10n.settings_password_input_msg3 : message,
-              style: ref.acTitleMedium(context),
+              isError ? context.l10n.settings_password_input_error : message,
+              style: ref.acTitleTextMedium(context),
               textAlign: TextAlign.center,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -43,18 +43,11 @@ class PinBoxes extends ConsumerWidget {
             final isCurrent = i == pin.length && pin.length < maxLength;
 
             final borderColor = isError
-                ? ref.acError(context)
-                : (isCurrent
-                      ? ref.acPrimary(context)
-                      : ref.acOutlineVariant(context));
+                ? ref.acErrorContainer(context)
+                : (isCurrent ? ref.acPrimary(context) : ref.acOutline(context));
 
-            final bgColor = isCurrent
-                ? ref.acSurfaceContainer(context)
-                : ref.acSurfaceContainerHighest(context);
-
-            final dotColor = isError
-                ? ref.acError(context)
-                : ref.acPrimary(context);
+            final bgColor = ref.acSurfaceSecondary(context);
+            final dotColor = ref.acTextColorPrimaryLabel(context);
 
             return AnimatedContainer(
               key: ValueKey(i),

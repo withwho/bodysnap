@@ -14,7 +14,7 @@ class AppBootStrap extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(passwordProvider); // AsyncValue<String?>
     AppLog.d(
-      'lock state: ${state.hasValue
+      'AppBootStrap passwordProvider state: ${state.hasValue
           ? "data"
           : state.hasError
           ? "error"

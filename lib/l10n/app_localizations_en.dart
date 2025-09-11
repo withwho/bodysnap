@@ -18,13 +18,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String get common_delete => 'Delete';
 
   @override
-  String get settings_page_title => 'Settings';
+  String get settings_page_title => 'Setting';
+
+  @override
+  String get settings_section_application => 'General';
+
+  @override
+  String get settings_section_security => 'Security';
+
+  @override
+  String get settings_section_support => 'Support';
 
   @override
   String get settings_list_version => 'Version';
 
   @override
-  String get settings_list_password => 'Password';
+  String get settings_list_subscribe => 'Subscription';
+
+  @override
+  String get settings_list_theme => 'Theme';
+
+  @override
+  String get settings_list_language => 'Language';
+
+  @override
+  String get settings_list_password => 'Set Password';
+
+  @override
+  String get settings_list_privacy => 'Privacy Policy';
 
   @override
   String get settings_list_backup => 'Backup & Restore';
@@ -33,7 +54,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_list_reset => 'Reset';
 
   @override
-  String get settings_list_subscribe => 'Subscribe';
+  String get settings_list_contact => 'Contact Us';
+
+  @override
+  String get settings_theme_system => 'System';
+
+  @override
+  String get settings_theme_light => 'Light';
+
+  @override
+  String get settings_theme_dark => 'Dark';
+
+  @override
+  String get settings_language_system => 'System';
+
+  @override
+  String get settings_language_en => 'English';
+
+  @override
+  String get settings_language_kr => 'Korean';
 
   @override
   String get settings_reset_title => 'Reset';
@@ -45,11 +84,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_reset_confirm => 'Reset';
 
   @override
-  String get settings_password_input_msg => 'Enter a 4-digit PIN';
+  String get settings_password_input_enter => 'Enter passcode';
 
   @override
-  String get settings_password_input_msg2 => 'Confirm your PIN';
+  String get settings_password_input_new => 'Enter new passcode';
 
   @override
-  String get settings_password_input_msg3 => 'Passcodes do not match.\nTry again';
+  String get settings_password_input_repeat => 'Repeat passcode';
+
+  @override
+  String get settings_password_input_error => 'Passcode do not match.\nTry again';
 }

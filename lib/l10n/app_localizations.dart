@@ -116,8 +116,26 @@ abstract class AppLocalizations {
   /// No description provided for @settings_page_title.
   ///
   /// In en, this message translates to:
-  /// **'Settings'**
+  /// **'Setting'**
   String get settings_page_title;
+
+  /// No description provided for @settings_section_application.
+  ///
+  /// In en, this message translates to:
+  /// **'General'**
+  String get settings_section_application;
+
+  /// No description provided for @settings_section_security.
+  ///
+  /// In en, this message translates to:
+  /// **'Security'**
+  String get settings_section_security;
+
+  /// No description provided for @settings_section_support.
+  ///
+  /// In en, this message translates to:
+  /// **'Support'**
+  String get settings_section_support;
 
   /// No description provided for @settings_list_version.
   ///
@@ -125,11 +143,35 @@ abstract class AppLocalizations {
   /// **'Version'**
   String get settings_list_version;
 
+  /// No description provided for @settings_list_subscribe.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription'**
+  String get settings_list_subscribe;
+
+  /// No description provided for @settings_list_theme.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get settings_list_theme;
+
+  /// No description provided for @settings_list_language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get settings_list_language;
+
   /// No description provided for @settings_list_password.
   ///
   /// In en, this message translates to:
-  /// **'Password'**
+  /// **'Set Password'**
   String get settings_list_password;
+
+  /// No description provided for @settings_list_privacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get settings_list_privacy;
 
   /// No description provided for @settings_list_backup.
   ///
@@ -143,11 +185,47 @@ abstract class AppLocalizations {
   /// **'Reset'**
   String get settings_list_reset;
 
-  /// No description provided for @settings_list_subscribe.
+  /// No description provided for @settings_list_contact.
   ///
   /// In en, this message translates to:
-  /// **'Subscribe'**
-  String get settings_list_subscribe;
+  /// **'Contact Us'**
+  String get settings_list_contact;
+
+  /// No description provided for @settings_theme_system.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get settings_theme_system;
+
+  /// No description provided for @settings_theme_light.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get settings_theme_light;
+
+  /// No description provided for @settings_theme_dark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get settings_theme_dark;
+
+  /// No description provided for @settings_language_system.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get settings_language_system;
+
+  /// No description provided for @settings_language_en.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get settings_language_en;
+
+  /// No description provided for @settings_language_kr.
+  ///
+  /// In en, this message translates to:
+  /// **'Korean'**
+  String get settings_language_kr;
 
   /// No description provided for @settings_reset_title.
   ///
@@ -167,23 +245,29 @@ abstract class AppLocalizations {
   /// **'Reset'**
   String get settings_reset_confirm;
 
-  /// No description provided for @settings_password_input_msg.
+  /// No description provided for @settings_password_input_enter.
   ///
   /// In en, this message translates to:
-  /// **'Enter a 4-digit PIN'**
-  String get settings_password_input_msg;
+  /// **'Enter passcode'**
+  String get settings_password_input_enter;
 
-  /// No description provided for @settings_password_input_msg2.
+  /// No description provided for @settings_password_input_new.
   ///
   /// In en, this message translates to:
-  /// **'Confirm your PIN'**
-  String get settings_password_input_msg2;
+  /// **'Enter new passcode'**
+  String get settings_password_input_new;
 
-  /// No description provided for @settings_password_input_msg3.
+  /// No description provided for @settings_password_input_repeat.
   ///
   /// In en, this message translates to:
-  /// **'Passcodes do not match.\nTry again'**
-  String get settings_password_input_msg3;
+  /// **'Repeat passcode'**
+  String get settings_password_input_repeat;
+
+  /// No description provided for @settings_password_input_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Passcode do not match.\nTry again'**
+  String get settings_password_input_error;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -40,7 +40,7 @@ class PasswordConfirmPage extends HookConsumerWidget {
             children: [
               const SizedBox(height: 8),
               PinBoxes(
-                message: context.l10n.settings_password_input_msg2,
+                message: context.l10n.settings_password_input_repeat,
                 maxLength: pinMaxLength,
                 pin: value,
                 isError: !isEqual,
@@ -51,7 +51,7 @@ class PasswordConfirmPage extends HookConsumerWidget {
                 onBackspace: () => pinController.tryBackspace(),
                 onConfirm: () async {
                   context.loaderOverlay.show();
-                  await Future.delayed(const Duration(seconds: 5));
+                  //await Future.delayed(const Duration(seconds: 1));
                   final ok = await ref
                       .read(passwordProvider.notifier)
                       .setPassword(value);
@@ -60,7 +60,14 @@ class PasswordConfirmPage extends HookConsumerWidget {
                   context.loaderOverlay.hide();
 
                   if (!ok) return;
-                  context.go('/setting');
+
+                  // ✅ 방금 사용자가 비밀번호를 두 번 입력/확정했으므로 세션 언락 처리
+                  ref.read(unlockedProvider.notifier).state = true;
+
+                  // ✅ 바로 직후 가드가 뜨지 않도록 최근 활동 시각 갱신
+                  ref.read(lastBackgroundAtProvider.notifier).state =
+                      DateTime.now();
+                  GoRouter.of(context).go("/setting");
                 },
                 isConfirmEnabled: isConfirmEnabled,
               ),

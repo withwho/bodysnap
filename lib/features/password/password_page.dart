@@ -32,7 +32,7 @@ class PasswordPage extends HookConsumerWidget {
             children: [
               const SizedBox(height: 8),
               PinBoxes(
-                message: context.l10n.settings_password_input_msg,
+                message: context.l10n.settings_password_input_enter,
                 maxLength: AppConstants.passwordLength,
                 pin: pinController.value,
                 isError: isError.value,

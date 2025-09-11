@@ -49,13 +49,15 @@ class NumberPad extends ConsumerWidget {
     );
 
     Widget digit(String n) => keyButton(
-      child: Text(n, style: ref.acTitleLarge(context)),
+      child: Text(n, style: ref.acTitleTextLarge(context)),
       onPressed: () => onDigit(n),
     );
 
     // 빈칸은 버튼이 아닌 SizedBox로 처리 (접근성/포커스 노출 X)
     Widget placeholderBox() =>
         const SizedBox(width: _keyBtnWidth, height: _keyBtnHeight);
+
+    final keyColor = ref.acTextColorPrimaryLabel(context);
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -74,10 +76,10 @@ class NumberPad extends ConsumerWidget {
           if (perRow <= 3) placeholderBox(),
           digit('0'),
           keyButton(
-            child: const AdaptiveIcon(
+            child: AdaptiveIcon(
               materialIconData: Icons.backspace_outlined,
               cupertinoIconData: CupertinoIcons.delete_left,
-              tone: AdaptiveIconTone.onSurface,
+              customColor: keyColor,
             ),
             onPressed: () {
               onBackspace();

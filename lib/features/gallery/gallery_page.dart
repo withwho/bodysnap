@@ -1,4 +1,3 @@
-import 'package:bodysnap/core/platform/adaptive_theme_extension.dart';
 import 'package:bodysnap/core/platform/widgets/adaptive_icon_button.dart';
 import 'package:bodysnap/core/platform/widgets/adaptive_scaffold.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,7 +14,6 @@ class GalleryPage extends ConsumerWidget {
       trailing: AdaptiveIconButton(
         cupertinoIcon: CupertinoIcons.gear_solid,
         materialIcon: Icons.settings,
-        color: ref.acOnSurface(context),
         onPressed: () => GoRouter.of(context).push('/setting'),
         padding: EdgeInsets.zero,
       ),
