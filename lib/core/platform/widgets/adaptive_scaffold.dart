@@ -15,6 +15,7 @@ class AppScaffold extends ConsumerWidget {
     this.centerTitle, // Material에서만 강제 중앙정렬하고 싶을 때
     this.cupertinoBackgroundColor,
     this.cupertinoNavBarBackgroundColor,
+    this.canPop = true,
     this.disableBack = false,
   });
 
@@ -24,6 +25,7 @@ class AppScaffold extends ConsumerWidget {
   final bool? centerTitle;
   final Color? cupertinoBackgroundColor;
   final Color? cupertinoNavBarBackgroundColor;
+  final bool canPop;
   final bool disableBack;
 
   @override
@@ -33,16 +35,13 @@ class AppScaffold extends ConsumerWidget {
     final currentUri = GoRouterState.of(context).uri; // e.g. '/', '/setting'
     AppLog.d('AppScaffold current path : ${currentUri.path}');
 
-    final isRoot = currentUri.path == '/';
-
     // 실제 네비게이터가 pop 가능한지 (go_router의 canPop 대신)
-    final navCanPop = Navigator.maybeOf(context)?.canPop() ?? false;
-    AppLog.d('AppScaffold navCanPop : $navCanPop');
-    final routerCanPop = GoRouter.of(context).canPop();
-    AppLog.d('AppScaffold routerCanPop : $routerCanPop');
+    // final navCanPop = Navigator.maybeOf(context)?.canPop() ?? false;
+    // AppLog.d('AppScaffold navCanPop : $navCanPop');
+    // final routerCanPop = GoRouter.of(context).canPop();
+    // AppLog.d('AppScaffold routerCanPop : $routerCanPop');
 
-    // 표시 규칙: 루트면 숨김. 루트가 아니면 보이되, pop이 안 되면 '대체 동작'으로 처리(아래 2) 참고)
-    final showBack = !disableBack && !isRoot && navCanPop;
+    final showBack = !disableBack && canPop;
 
     final Widget? titleWidget = (title != null ? Text(title!) : null);
 

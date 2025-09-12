@@ -17,6 +17,7 @@ class GalleryPage extends ConsumerWidget {
         onPressed: () => GoRouter.of(context).push('/setting'),
         padding: EdgeInsets.zero,
       ),
+      canPop: false,
       body: const Center(child: Text('body')),
     );
   }

@@ -2,6 +2,7 @@ import 'package:bodysnap/core/platform/adaptive_theme_extension.dart';
 import 'package:bodysnap/core/platform/widgets/adaptive_icon.dart';
 import 'package:bodysnap/core/platform/widgets/adaptive_scaffold.dart';
 import 'package:bodysnap/features/setting/pages/premium/feature_tile.dart';
+import 'package:bodysnap/features/setting/pages/premium/subscribe_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -54,23 +55,11 @@ class PremiumPurchasePage extends ConsumerWidget {
                         'Body fat %, Muscle mass %, Left biceps, Right biceps, Left forearm, Right forearm, Left Thigh, Right Thigh, Left calf, Right calf',
                   ),
                   const SizedBox(height: 18),
-                  const FeatureTile(
-                    title: 'Track 3 custom measurements',
-                    subtitle:
-                        'Flexible measurements — name them whatever you’d like',
-                  ),
+                  SubscribeButton(title: '월 구독', price: '1,500', onTap: (){}),
                   const SizedBox(height: 18),
-                  const FeatureTile(
-                    title: 'Track your BMI',
-                    subtitle:
-                        'BMI offers a simple method of defining your weight category',
-                  ),
+                  SubscribeButton(title: '연 구독', price: '8,900', onTap: (){}),
                   const SizedBox(height: 18),
-                  const FeatureTile(
-                    title: 'Sync with Google Fit',
-                    subtitle:
-                        'Indicators Weight and Height will be synchronized with your Google Fit',
-                  ),
+                  SubscribeButton(title: '소장', price: '14,900', onTap: (){}),
                   const SizedBox(height: 40),
                 ],
               ),
